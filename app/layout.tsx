@@ -1,4 +1,4 @@
-import { firaC } from "./ui/font";
+import { ptmono } from "./ui/font";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body className={`${firaC.className} antialiased bg-white text-black`}>{children}</body>
+      <body className={`${ptmono.className} antialiased  `}>{children}</body>
     </html>
   );
 }
