@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body className={`${firaC.className} antialiased `}>{children}</body>
+      <body className={`${firaC.className} antialiased bg-white text-black`}>{children}</body>
     </html>
   );
 }

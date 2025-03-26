@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { Button } from "./ui/button";
 
 export default function Page() {
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -23,7 +24,7 @@ export default function Page() {
       <p ref={paragraphRef} className="text-lg">
         This is a new page.
       </p>
-      <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl btn-soft">Responsive</button>
+      <Button>Click me</Button>
     </div>
   );
 }
