@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { firaC } from "./layout";
 
 export default function Page() {
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -16,7 +15,7 @@ export default function Page() {
 
   return (
     <div
-      className={`${firaC.className} flex flex-col items-center justify-center h-screen`}
+      className={` flex flex-col items-center justify-center h-screen`}
     >
       <h1 ref={headingRef} className="text-4xl font-bold">
         Hello, world!
