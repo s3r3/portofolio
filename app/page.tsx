@@ -23,6 +23,7 @@ export default function Page() {
       <p ref={paragraphRef} className="text-lg">
         This is a new page.
       </p>
+      <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl btn-soft">Responsive</button>
     </div>
   );
 }
