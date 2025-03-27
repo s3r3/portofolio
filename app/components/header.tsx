@@ -47,11 +47,11 @@ const Header = () => {
       </ul>
 
       <div className="absolute left-5 h-[191px] flex flex-col top-0 items-center gap-2">
-        <div className="border-l border-[#ABB2BF] h-full border-animate "/>
+        <div className="border border-[#ABB2BF] h-full border-animate "/>
         <div className="flex flex-col gap-2  ">
-          <FaGithub  className="social-icon"/>
-          <FaDribbble className="social-icon" />
-          <IoLogoFigma  className="social-icon"/>
+          <FaGithub  className="social-icon w-5 h-5"/>
+          <FaDribbble className="social-icon w-5 h-5" />
+          <IoLogoFigma  className="social-icon w-5 h-5"/>
         </div>
       </div>
 
