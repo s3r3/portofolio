@@ -92,6 +92,18 @@ const Header = () => {
           />
         </div>
       </div>
+      {/* quotes */}
+      <div className="pt-12 pb-5 flex justify-center relative flex-col items-center">
+        <div className="w-[512px] h-[66px] border-1 flex items-center justify-center">
+          <p className="relative bottom-7 bg-[#1d232a] text-3xl">"</p>
+          <p>With great power comes great electricity bill</p>
+        </div>
+        <div className="w-[162px] h-[46px] border-1 flex items-center justify-center relative left-[175px]">
+          <p className="relative bottom-4 left-25 h-fit bg-[#1d232a] text-3xl">"</p>
+          <p>~ Dr.Who</p>
+
+        </div>
+      </div>
     </header>
   );
 };
