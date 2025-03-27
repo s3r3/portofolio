@@ -16,16 +16,27 @@ export function EffectSVG() {
 
   return null;
 }
-
-export const scrambleText = (element: HTMLElement, text: string, duration: number) => {
+//animation scramble text
+export const scrambleText = (
+  element: HTMLElement,
+  text: string,
+  duration: number
+) => {
   const chars = "!1€5@#][6&$(=)£AF/&(234$$2N€O=(!@[";
-  let scrambled = text.split("").map(() => chars[Math.floor(Math.random() * chars.length)]).join("");
+  let scrambled = text
+    .split("")
+    .map(() => chars[Math.floor(Math.random() * chars.length)])
+    .join("");
 
   let iteration = 0;
   const interval = setInterval(() => {
     scrambled = scrambled
       .split("")
-      .map((char, index) => (index < iteration ? text[index] : chars[Math.floor(Math.random() * chars.length)]))
+      .map((char, index) =>
+        index < iteration
+          ? text[index]
+          : chars[Math.floor(Math.random() * chars.length)]
+      )
       .join("");
 
     element.innerText = scrambled;
@@ -35,5 +46,26 @@ export const scrambleText = (element: HTMLElement, text: string, duration: numbe
   }, duration / text.length);
 };
 
-// Cara pakai
+//  animationfor icon
+export const iconAnimation = () => {
+  useEffect(() => {
+    gsap.from(".social-icon", {
+      y: -50,
+      stagger: 0.2,
+      duration: 1,
+      ease: "bounce.out",
+    });
+  }, []);
+  return null;
+};
 
+export const borderAnimation = () => {
+  useEffect(() => {
+    gsap.from(".border-animate", {
+      height: 0,
+      duration: 1,
+      ease: "power1.inOut",
+    });
+  }, []);
+  return null;
+};

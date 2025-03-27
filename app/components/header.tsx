@@ -7,7 +7,7 @@ import { IoLogoFigma } from "react-icons/io5";
 import { Button } from "../ui/button";
 import LandingSvg from "../ui/landing/svg";
 import Image from "next/image";
-import { EffectSVG, scrambleText } from "../ui/landing/Animation";
+import { EffectSVG, scrambleText,iconAnimation,borderAnimation } from "../ui/landing/Animation";
 import IMAGE from "../../public/IMAGE";
 
 const Header = () => {
@@ -15,6 +15,8 @@ const Header = () => {
 
   // Animation
   EffectSVG();
+  iconAnimation();
+  borderAnimation();
   useEffect(() => {
     const element = document.getElementById("scramble_1");
     if (element) {
@@ -45,11 +47,11 @@ const Header = () => {
       </ul>
 
       <div className="absolute left-5 h-[191px] flex flex-col top-0 items-center gap-2">
-        <div className="border-l border-[#ABB2BF] h-full"></div>
-        <div className="flex flex-col gap-2 ">
-          <FaGithub />
-          <FaDribbble />
-          <IoLogoFigma />
+        <div className="border-l border-[#ABB2BF] h-full border-animate "/>
+        <div className="flex flex-col gap-2  ">
+          <FaGithub  className="social-icon"/>
+          <FaDribbble className="social-icon" />
+          <IoLogoFigma  className="social-icon"/>
         </div>
       </div>
 
