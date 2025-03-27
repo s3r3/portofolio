@@ -4,11 +4,15 @@ import useLanguageStore from "../store/languageStore";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoLogoFigma } from "react-icons/io5";
 import { Button } from "../ui/button";
+import LandingSvg from "../ui/landing/svg";
+import Image from "next/image";
+
+
 const Header = () => {
   const { language, setLanguage } = useLanguageStore();
-
+  
   return (
-    <header className="text-[#ABB2BF] flex justify-center flex-col px-[171px]">
+    <header className="text-[#ABB2BF] flex justify-center flex-col ">
       <ul className="flex gap-10 m-8 justify-center">
         <li>#home</li>
         <li>#about-me</li>
@@ -29,7 +33,7 @@ const Header = () => {
         </div>
       </ul>
       
-      <div className="absolute left-5 h-[191px] flex flex-col items-center gap-2">
+      <div className="absolute left-5 h-[191px] flex flex-col top-0 items-center gap-2">
         <div className="border-l border-[#ABB2BF] h-full"></div>
         <div className="flex flex-col gap-2 ">
           <FaGithub />
@@ -39,7 +43,7 @@ const Header = () => {
       </div>
 
       {/* Main */}
-      <div>
+      <div className="flex">
         {/* left */}
         <div className="flex flex-col gap-4 w-[557px]">
             <h1 className="text-white">Elias is a <span className="text-[#C778DD]">web designer</span> and <span className="text-[#C778DD]">front-end developer</span></h1>
@@ -47,7 +51,9 @@ const Header = () => {
             <Button className="w-[148px]">Contact Me!!</Button>
         </div>
         {/* right */}
-        <div></div>
+        <div>
+          <Image src={LandingSvg.dots} alt="dots"/>
+        </div>
       </div>
     </header>
   );

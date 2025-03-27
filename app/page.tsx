@@ -9,7 +9,7 @@ export default function Page() {
   
 
   return (
-    <div className=" ">
+    <div className="px-[171px] ">
       <Header />
     </div>
   );
