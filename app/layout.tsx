@@ -1,4 +1,4 @@
-import { ptmono } from "./ui/font";
+import { ptmono } from "../public/font";
 import type { Metadata } from "next";
 import "./globals.css";
 

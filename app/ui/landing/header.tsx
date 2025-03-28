@@ -1,14 +1,20 @@
 "use client";
 import { useEffect } from "react";
 import { FaDribbble, FaGithub } from "react-icons/fa";
-import useLanguageStore from "../store/languageStore";
+import useLanguageStore from "../../store/languageStore";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoLogoFigma } from "react-icons/io5";
-import { Button } from "../ui/button";
-import LandingSvg from "../ui/landing/svg";
+import { Button } from "../../../public/button";
+import LandingSvg from "./svg/svg";
 import Image from "next/image";
-import { EffectSVG, scrambleText,iconAnimation,borderAnimation } from "../ui/landing/Animation";
-import IMAGE from "../../public/IMAGE";
+import {
+  EffectSVG,
+  scrambleText,
+  iconAnimation,
+  borderAnimation,
+} from "./animation/Animation";
+import IMAGE from "../../../public/IMAGE";
+import ProjectsSec from "./projects";
 
 const Header = () => {
   const { language, setLanguage } = useLanguageStore();
@@ -19,9 +25,8 @@ const Header = () => {
   borderAnimation();
   useEffect(() => {
     const element = document.getElementById("scramble_1");
-    if (element) {
+    element &&
       scrambleText(element, "Currently working on Fullstack Developer", 2000);
-    }
   }, []);
 
   return (
@@ -47,11 +52,11 @@ const Header = () => {
       </ul>
 
       <div className="absolute left-5 h-[191px] flex flex-col top-0 items-center gap-2">
-        <div className="border border-[#ABB2BF] h-full border-animate "/>
+        <div className="border border-[#ABB2BF] h-full border-animate " />
         <div className="flex flex-col gap-2  ">
-          <FaGithub  className="social-icon w-5 h-5"/>
+          <FaGithub className="social-icon w-5 h-5" />
           <FaDribbble className="social-icon w-5 h-5" />
-          <IoLogoFigma  className="social-icon w-5 h-5"/>
+          <IoLogoFigma className="social-icon w-5 h-5" />
         </div>
       </div>
 
@@ -81,9 +86,7 @@ const Header = () => {
               <div className="w-[16px] h-[16px] bg-[#C778DD]" />
               <p className="text-[#ABB2BF] text-sm" id="scramble_1">
                 Currently working on
-                <span className="text-white " >
-                  FullStack Developer
-                </span>
+                <span className="text-white ">FullStack Developer</span>
               </p>
             </div>
           </div>
@@ -101,11 +104,13 @@ const Header = () => {
           <p>With great power comes great electricity bill</p>
         </div>
         <div className="w-[162px] h-[46px] border-1 flex items-center justify-center relative left-[175px]">
-          <p className="relative bottom-4 left-25 h-fit bg-[#1d232a] text-3xl">"</p>
+          <p className="relative bottom-4 left-25 h-fit bg-[#1d232a] text-3xl">
+            "
+          </p>
           <p>~ Dr.Who</p>
-
         </div>
       </div>
+      <ProjectsSec/>
     </header>
   );
 };
