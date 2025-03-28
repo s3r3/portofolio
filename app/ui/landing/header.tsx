@@ -11,7 +11,7 @@ import {
   EffectSVG,
   scrambleText,
   iconAnimation,
-  borderAnimation,
+  borderAnimation
 } from "./animation/Animation";
 import IMAGE from "../../../public/IMAGE";
 import ProjectsSec from "./projects";
@@ -23,6 +23,7 @@ const Header = () => {
   EffectSVG();
   iconAnimation();
   borderAnimation();
+  
   useEffect(() => {
     const element = document.getElementById("scramble_1");
     element &&
@@ -99,7 +100,7 @@ const Header = () => {
       </div>
       {/* quotes */}
       <div className="pt-12 pb-5 flex justify-center relative flex-col items-center">
-        <div className="w-[512px] h-[66px] border-1 flex items-center justify-center">
+        <div className="w-[512px] h-[66px] border-1 flex items-center justify-center ">
           <p className="relative bottom-7 bg-[#1d232a] text-3xl">"</p>
           <p>With great power comes great electricity bill</p>
         </div>
