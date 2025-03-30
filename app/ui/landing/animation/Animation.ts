@@ -69,7 +69,6 @@ export const borderAnimation = () => {
   }, []);
   return null;
 };
-
 //button animation
 export const codeButtonAnimation = (element: HTMLElement) => {
   gsap.fromTo(element, {

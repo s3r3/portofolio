@@ -3,7 +3,7 @@ import IMAGE from "@/public/IMAGE";
 import useStore from "@/app/store/buttonAppearclick";
 import { codeButtonAnimation } from "./animation/Animation";
 import { useEffect, useRef } from "react";
-
+import Api from "./api";
 export default function ProjectsSec() {
   const { activeProject, setActiveProject } = useStore();
   const codeButtonRef = useRef(null);
@@ -42,7 +42,7 @@ export default function ProjectsSec() {
         <h1 className="">
           <span className="text-[#C778DD]">#</span> Projects
         </h1>
-        <div className="border border-[#C778DD] h-0 w-[511px] relative right-20 " />
+        <div className=" border border-[#C778DD] h-0 w-[511px] relative right-20 " />
         <p className="">
           View All <span>~~&#62;</span>
         </p>
@@ -64,7 +64,7 @@ export default function ProjectsSec() {
               <h1 className="text-xl">{project.title}</h1>
               <p className="text-sm">{project.description}</p>
               <div className="flex gap-2">
-                <button className="btn btn-outline btn-primary text-white">
+                <button className="btn btn-outline btn-primary text-white"> 
                   Live &lt;~&gt;
                 </button>
                 {activeProject === index && (
@@ -79,7 +79,9 @@ export default function ProjectsSec() {
             </div>
           </div>
         ))}
+        
       </div>
+      <Api/>
     </section>
   );
 }

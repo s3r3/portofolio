@@ -10,7 +10,10 @@
     "clean": "rimraf .next"
   },
   "dependencies": {
+    "@next/env": "^15.2.4",
+    "axios": "^1.8.4",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
     "framer-motion": "^12.6.0",
     "gsap": "^3.12.7",
     "motion": "^12.6.0",
