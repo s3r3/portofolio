@@ -1,18 +1,23 @@
+// biodata/app/ui/landing/projects.tsx
 import Image from "next/image";
 import IMAGE from "@/public/IMAGE";
 import useStore from "@/app/store/buttonAppearclick";
 import { codeButtonAnimation } from "./animation/Animation";
 import { useEffect, useRef } from "react";
-import Api from "./api";
+import { Repo } from "@/app/lib/definitions";
+import { fetchProjects } from "./api/github-api";
+import { useState } from "react";
+
 export default function ProjectsSec() {
   const { activeProject, setActiveProject } = useStore();
   const codeButtonRef = useRef(null);
+  const [repos, setRepos] = useState<Repo[]>([])
 
   useEffect(() => {
     console.log("useEffect triggered");
     if (codeButtonRef.current) {
       codeButtonAnimation(codeButtonRef.current);
-    } 
+    }
   }, [activeProject]);
 
   const projects = [
@@ -35,6 +40,37 @@ export default function ProjectsSec() {
       technologies: ["Python", "Flask", "React"],
     },
   ];
+
+  const fetchRepos = async () => {
+    try {
+      const data = await fetchProjects();
+      setRepos(
+        data.map(
+          (repo: {
+            id: string;
+            name: string;
+            description: string;
+            topics: string[];
+            language: string;
+          }) => ({
+            id: repo.id,
+            name: repo.name,
+            description: repo.description,
+            technologies: repo.topics,
+            image: `https://source.unsplash.com/300x200/?${repo.name}`,
+            url: `https://github.com/s3r3/${repo.name}`,
+            language: repo.language,
+          })
+        )
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRepos();
+  }, []);
 
   return (
     <section>
@@ -64,13 +100,14 @@ export default function ProjectsSec() {
               <h1 className="text-xl">{project.title}</h1>
               <p className="text-sm">{project.description}</p>
               <div className="flex gap-2">
-                <button className="btn btn-outline btn-primary text-white"> 
+                <button className="btn btn-outline btn-primary text-white">
                   Live &lt;~&gt;
                 </button>
                 {activeProject === index && (
                   <button
                     className="btn btn-outline btn-primary text-white code-button"
                     ref={codeButtonRef}
+                    onClick={() => window.open(repos[index].url, "_blank")}
                   >
                     Code &lt;~&gt;
                   </button>
@@ -79,9 +116,7 @@ export default function ProjectsSec() {
             </div>
           </div>
         ))}
-        
       </div>
-      <Api/>
     </section>
   );
 }
