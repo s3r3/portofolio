@@ -46,18 +46,8 @@ export default function ProjectsSec() {
       const data = await fetchProjects();
       setRepos(
         data.map(
-          (repo: {
-            id: string;
-            name: string;
-            description: string;
-            topics: string[];
-            language: string;
-          }) => ({
+          (repo:Repo) => ({
             id: repo.id,
-            name: repo.name,
-            description: repo.description,
-            technologies: repo.topics,
-            image: `https://source.unsplash.com/300x200/?${repo.name}`,
             url: `https://github.com/s3r3/${repo.name}`,
             language: repo.language,
           })
