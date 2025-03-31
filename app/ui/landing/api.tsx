@@ -1,6 +1,6 @@
 // biodata/app/ui/landing/api.tsx
 import { useState, useEffect } from 'react';
-import { fetchProjects } from '../../api/github-api';
+import { fetchProjects  } from './api/github-api';
 
 export default function Api () {
   const [repos, setRepos] = useState<{ id: string; name: string; description: string; technologies: string[]; image: string; url: string; language: string; }[]>([]);
