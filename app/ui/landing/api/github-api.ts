@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 const GitHub_API_URL = "https://api.github.com";
-const GITHUB_TOKEN = process.env.TOKEN;
+const GITHUB_TOKEN = process.env.NEXT_PUBLIC_GITHUB_TOKENA;
 console.log (GITHUB_TOKEN)
 console.log('Token GitHub:', GITHUB_TOKEN);
 
