@@ -12,7 +12,7 @@ import { useState } from "react";
 export default function ProjectsSec() {
   const { activeProject, setActiveProject } = useStore();
   const codeButtonRef = useRef(null);
-  const [repos, setRepos] = useState<Repo[]>([])
+  const [repos, setRepos] = useState<Repo[]>([]);
 
   useEffect(() => {
     console.log("useEffect triggered");
@@ -46,13 +46,11 @@ export default function ProjectsSec() {
     try {
       const data = await fetchProjects();
       setRepos(
-        data.map(
-          (repo:Repo) => ({
-            id: repo.id,
-            url: `https://github.com/s3r3/${repo.name}`,
-            language: repo.language,
-          })
-        )
+        data.map((repo: Repo) => ({
+          id: repo.id,
+          url: `https://github.com/s3r3/${repo.name}`,
+          language: repo.language,
+        }))
       );
     } catch (error) {
       console.error(error);
@@ -99,7 +97,7 @@ export default function ProjectsSec() {
                     className="btn btn-outline btn-primary text-white code-button"
                     ref={codeButtonRef}
                     onClick={() => window.open(repos[index].url, "_blank")}
-                 >
+                  >
                     Code &lt;~&gt;
                   </button>
                 )}

@@ -16,6 +16,7 @@ import {
 import IMAGE from "../../../public/IMAGE";
 import ProjectsSec from "./projects";
 import SkilsSec from "./skills";
+import AboutMe from "./aboutMe";
 
 const Header = () => {
   const { language, setLanguage } = useLanguageStore();
@@ -114,6 +115,7 @@ const Header = () => {
       </div>
       <ProjectsSec/>
       <SkilsSec/>
+      <AboutMe/>
     </header>
   );
 };
