@@ -4,6 +4,7 @@ import IMAGE from "@/public/IMAGE";
 import useStore from "@/app/store/buttonAppearclick";
 import { codeButtonAnimation } from "./animation/Animation";
 import { useEffect, useRef } from "react";
+
 import { Repo } from "@/app/lib/definitions";
 import { fetchProjects } from "./api/github-api";
 import { useState } from "react";
@@ -98,7 +99,7 @@ export default function ProjectsSec() {
                     className="btn btn-outline btn-primary text-white code-button"
                     ref={codeButtonRef}
                     onClick={() => window.open(repos[index].url, "_blank")}
-                  >
+                 >
                     Code &lt;~&gt;
                   </button>
                 )}

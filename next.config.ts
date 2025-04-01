@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   env:{
-    TOKEN: process.env.GITHUB_TOKENA
+    TOKENA: process.env.GITHUB_TOKENA
   }
   
 };
