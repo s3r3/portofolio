@@ -17,7 +17,8 @@ import IMAGE from "../../../public/IMAGE";
 import ProjectsSec from "./projects";
 import SkilsSec from "./skills";
 import AboutMe from "./aboutMe";
-
+import Contacts from "./contacts";
+import Footer from "./footer";
 const Header = () => {
   const { language, setLanguage } = useLanguageStore();
 
@@ -116,6 +117,8 @@ const Header = () => {
       <ProjectsSec/>
       <SkilsSec/>
       <AboutMe/>
+      <Contacts/>
+      <Footer/>
     </header>
   );
 };
