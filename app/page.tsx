@@ -7,7 +7,7 @@ export default function Page() {
   const paragraphRef = useRef<HTMLParagraphElement>(null);
 
   return (
-    <div className="px-[171px] bg-[#ABB2BF]">
+    <div className="px-[171px] bg-[#282C33]">
       <Header />
     </div>
   );
