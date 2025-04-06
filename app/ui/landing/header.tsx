@@ -11,7 +11,7 @@ import {
   EffectSVG,
   scrambleText,
   iconAnimation,
-  borderAnimation
+  borderAnimation,
 } from "./animation/Animation";
 import IMAGE from "../../../public/IMAGE";
 import ProjectsSec from "./projects";
@@ -26,7 +26,7 @@ const Header = () => {
   EffectSVG();
   iconAnimation();
   borderAnimation();
-  
+
   useEffect(() => {
     const element = document.getElementById("scramble_1");
     element &&
@@ -35,7 +35,7 @@ const Header = () => {
 
   return (
     <header className="text-[#ABB2BF] flex justify-center flex-col ">
-      <ul className="flex gap-10 m-8 justify-center md:hidden">
+      <ul className="flex gap-10 m-8 justify-center sm:hidden">
         <li>#home</li>
         <li>#about-me</li>
         <li>#contacts</li>
@@ -55,7 +55,7 @@ const Header = () => {
         </div>
       </ul>
 
-      <div className="absolute left-5 h-[191px] flex flex-col top-0 items-center gap-2 md:hidden">
+      <div className="absolute left-5 h-[191px] flex flex-col top-0 items-center gap-2 ">
         <div className="border border-[#ABB2BF] h-full border-animate " />
         <div className="flex flex-col gap-2  ">
           <FaGithub className="social-icon w-5 h-5" />
@@ -65,28 +65,28 @@ const Header = () => {
       </div>
 
       {/* Main */}
-      <div className="flex items-center gap-5 md:flex-col">
+      <div className="flex items-center gap-5 ">
         {/* left */}
-        <div className="flex flex-col gap-4 w-[557px] md:w-[328px] ">
-          <h1 className="text-white md:text-3xl">
+        <div className="flex flex-col gap-4 w-[557px] ">
+          <h1 className="text-white ">
             Elias is a <span className="text-[#C778DD]">web designer</span> and{" "}
             <span className="text-[#C778DD]">front-end developer</span>
           </h1>
-          <p className="text-[#ABB2BF] md:text-md">
+          <p className="text-[#ABB2BF] ">
             He crafts responsive websites where technologies meet creativity
           </p>
           <Button className="w-[148px]">Contact Me!!</Button>
         </div>
         {/* right */}
-        <div className="flex relative md:w-[316px] ">
+        <div className="flex relative">
           <Image
             src={LandingSvg.logo}
             alt="logo"
-            className="absolute logo w-[8rem] top-20 md:w-[104px] md:h-[104px] "
+            className="absolute logo w-[8rem] top-20   "
           />
           <div className="relative">
-            <Image src={IMAGE.Orang} alt="" className="relative md:w-[307px]" />
-            <div className="w-[402px] h-[30px] border-1 flex gap-2 items-center px-3 md:w-[320px]  ">
+            <Image src={IMAGE.Orang} alt="" className="relative " />
+            <div className="w-[402px] h-[30px] border-1 flex gap-2 items-center px-3  ">
               <div className="w-[16px] h-[16px] bg-[#C778DD]" />
               <p className="text-[#ABB2BF] text-sm" id="scramble_1">
                 Currently working on
@@ -97,7 +97,7 @@ const Header = () => {
           <Image
             src={LandingSvg.dots}
             alt="dots"
-            className="dots relative right-20 top-15 md:w-[56px] md:h-[56px]"
+            className="dots relative right-20 top-15 "
           />
         </div>
       </div>
@@ -114,11 +114,11 @@ const Header = () => {
           <p>~ Dr.Who</p>
         </div>
       </div>
-      <ProjectsSec/>
-      <SkilsSec/>
-      <AboutMe/>
-      <Contacts/>
-      <Footer/>
+      <ProjectsSec />
+      <SkilsSec />
+      <AboutMe />
+      <Contacts />
+      <Footer />
     </header>
   );
 };
