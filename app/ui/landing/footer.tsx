@@ -8,8 +8,8 @@ export default function Footer (){
             <div className="pt-10 flex justify-between">
                 <div className="flex flex-col gap-3">
                     <div className="flex gap-4">
-                        <p>Elias</p>
-                        <p>elias@elias-dev.ml</p>
+                        <p>Muhammad Farid</p>
+                        <p>farid@farid-dev.ml</p>
                     </div>
                     <p>Web designer and front-end developer</p>
                 </div>

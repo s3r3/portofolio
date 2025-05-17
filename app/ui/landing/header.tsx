@@ -35,7 +35,7 @@ const Header = () => {
 
   return (
     <header className="text-[#ABB2BF] flex justify-center flex-col ">
-      <ul className="flex gap-10 m-8 justify-center sm:hidden">
+      <ul className="flex gap-10 m-8 justify-center ">
         <li>#home</li>
         <li>#about-me</li>
         <li>#contacts</li>
@@ -69,7 +69,7 @@ const Header = () => {
         {/* left */}
         <div className="flex flex-col gap-4 w-[557px] ">
           <h1 className="text-white ">
-            Elias is a <span className="text-[#C778DD]">web designer</span> and{" "}
+            Farid is a <span className="text-[#C778DD]">web designer</span> and{" "}
             <span className="text-[#C778DD]">front-end developer</span>
           </h1>
           <p className="text-[#ABB2BF] ">

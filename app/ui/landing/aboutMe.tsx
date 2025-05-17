@@ -13,7 +13,7 @@ export default function AboutMe() {
       </div>
       <div className="flex">
         <div className=" w-[515px] flex flex-col gap-3">
-          <p>Hello, i’m Elias!</p>
+          <p>Hello, i’m Farid!</p>
           <p>
             I’m a self-taught front-end developer based in Kyiv, Ukraine. I can
             develop responsive websites from scratch and raise them into modern

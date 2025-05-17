@@ -16,11 +16,11 @@ export default function Contacts() {
           <p>Message me here</p>
           <div className="flex gap-2 items-center">
             <FaDiscord className="text-white" />
-            <p>!Elias#3519</p>
+            <p>!farid#3519</p>
           </div>
           <div className="flex gap-2 items-center">
             <IoIosMail className="text-white" />
-            <p>elias@elias.me</p>
+            <p>farid@farid.me</p>
           </div>
         </div>
       </div>
