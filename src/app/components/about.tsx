@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import Matter from 'matter-js';
+import p1 from '../../../public/fadhil-abhimantra-vS7GjQ3lY3M-unsplash.jpg';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -12,7 +13,7 @@ const FONT_FAMILY = '"Sofia Sans Condensed", sans-serif';
 
 // Utility functions
 const smoothScrollToId = (id: string) => {
-  const scroller = window; // Hanya gunakan window untuk desktop
+  const scroller = window;
   const target = document.getElementById(id);
   if (!target) return;
   
@@ -64,8 +65,8 @@ const calculateTextDimensions = (width: number, height: number) => {
     lineSpacing: LINE_SPACING * verticalScale,
     charSpacing: CHAR_SPACING * verticalScale,
     xOffset: BASE_X_OFFSET * scale,
-    topPadding: 250 * verticalScale, // Tetap pakai nilai desktop
-    strengthPower: 0.4, // Hanya untuk desktop
+    topPadding: 250 * verticalScale,
+    strengthPower: 0.4,
   };
 };
 
@@ -118,8 +119,8 @@ const PhysicsText = () => {
       
       const { Engine, Render, World, Bodies, Events, Runner, Body } = Matter;
       const engine = Engine.create({
-        positionIterations: 8,
-        velocityIterations: 6,
+        positionIterations: 4, // Reduced for performance
+        velocityIterations: 3, // Reduced for performance
       });
       engineRef.current = engine;
       
@@ -138,9 +139,8 @@ const PhysicsText = () => {
       
       engine.gravity.y = 3;
       
-      // Create boundaries
       const FLOOR_H = Math.max(16, 0.12 * dimensions.charHeight);
-      const floorY = height - FLOOR_H / 2; // Pastikan floor di dalam viewport
+      const floorY = height - FLOOR_H / 2;
       const floor = Bodies.rectangle(width / 2, floorY, width * 2, FLOOR_H, {
         isStatic: true,
         restitution: 0,
@@ -149,7 +149,6 @@ const PhysicsText = () => {
         render: { visible: false },
       });
       
-      // Tambahkan ceiling boundary
       const ceiling = Bodies.rectangle(width / 2, -FLOOR_H / 2, width * 2, FLOOR_H, {
         isStatic: true,
         render: { visible: false },
@@ -168,7 +167,6 @@ const PhysicsText = () => {
       
       World.add(engine.world, [floor, ceiling, leftWall, rightWall]);
       
-      // Create text bodies
       let yOffset = dimensions.topPadding;
       const allBodies: Matter.Body[] = [];
       const initialPositions: {x: number, y: number}[] = [];
@@ -214,7 +212,6 @@ const PhysicsText = () => {
       initialPositionsRef.current = initialPositions;
       animTargetsRef.current = animTargets;
       
-      // Render text on canvas
       const afterRender = () => {
         const ctx = render.context;
         allBodiesRef.current.forEach((body) => {
@@ -236,7 +233,6 @@ const PhysicsText = () => {
       
       Events.on(render, 'afterRender', afterRender);
       
-      // Animation functions
       const cancelRaf = () => {
         if (rafIdRef.current) {
           cancelAnimationFrame(rafIdRef.current);
@@ -296,7 +292,6 @@ const PhysicsText = () => {
         step();
       };
       
-      // Mouse interaction
       const handleMouseMove = (e: MouseEvent) => {
         const mouseX = e.clientX;
         const mouseY = e.clientY;
@@ -319,17 +314,15 @@ const PhysicsText = () => {
         });
       };
       
-      // Start physics engine
       const runner = Runner.create();
       runnerRef.current = runner;
       Runner.run(runner, engine);
       Render.run(render);
       
-      // Scroll triggers with adjustments for fading out physics section
       const stBreak = ScrollTrigger.create({
         trigger: '.about-first__wrapper',
-        start: 'top -50%',
-        end: 'top -150%', // Adjusted end to make it fade out earlier
+        start: 'top 50%',
+        end: 'top 10%',
         toggleActions: 'play reverse play reverse',
         onEnter: () => {
           cancelRaf();
@@ -355,7 +348,6 @@ const PhysicsText = () => {
           window.addEventListener('mousemove', handleMouseMove);
         },
         onLeave: () => {
-          // Fade out the physics text section when leaving downward
           gsap.to('.about-first__wrapper', {
             opacity: 0,
             duration: 0.5,
@@ -363,7 +355,6 @@ const PhysicsText = () => {
           });
         },
         onEnterBack: () => {
-          // Fade in when entering back
           gsap.to('.about-first__wrapper', {
             opacity: 1,
             duration: 0.5,
@@ -381,67 +372,58 @@ const PhysicsText = () => {
         y: 0,
         scrollTrigger: {
           trigger: '.about-first__wrapper',
-          start: 'top -150%',
-          end: 'top -250%',
+          start: 'top 40%',
+          end: 'top 0%',
           scrub: true,
         },
       });
       
       ScrollTrigger.refresh(true);
       
-      // Cleanup function
       cleanupFn = () => {
         if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
-        
         try {
           Events.off(render, 'afterRender', afterRender);
         } catch {}
-        
         try {
           Render.stop(render);
         } catch {}
-        
         if (render?.canvas && render.canvas.parentNode) {
           render.canvas.parentNode.removeChild(render.canvas);
         }
-        
         try {
           World.clear(engine.world, false);
         } catch {}
-        
         try {
           Matter.Engine.clear(engine);
         } catch {}
-        
         if (runnerRef.current) {
           try {
             Runner.stop(runnerRef.current);
           } catch {}
           runnerRef.current = null;
         }
-        
         try {
           stBreak.kill();
         } catch {}
-        
         try {
           bgTween.kill();
         } catch {}
-        
         window.removeEventListener('mousemove', handleMouseMove);
       };
+      
+      ScrollTrigger.refresh();
     };
     
     init();
     
-    // Handle resize
     let resizeTimer: NodeJS.Timeout;
     const onResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         if (cleanupFn) cleanupFn();
-        init();
-      }, 120);
+        if (!destroyed) init();
+      }, 200);
     };
     
     window.addEventListener('resize', onResize);
@@ -476,8 +458,8 @@ const RevealLines = ({ lines = [], className = '' }: { lines: string[], classNam
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: innerRefs.current[0]?.parentNode?.parentNode as Element,
-            start: 'top -150%', // Adjusted start for smoother reveal
-            end: 'top -200%',
+            start: 'top 60%',
+            end: 'top 20%',
             scrub: 2,
           },
         });
@@ -557,7 +539,7 @@ const useTitleAnimation = () => {
           stagger: { each: 0.05, from: 'center' },
           scrollTrigger: {
             trigger: title,
-            start: 'top 100%',
+            start: 'top 80%',
             end: 'bottom 30%',
             scrub: 1,
           },
@@ -571,119 +553,96 @@ const useTitleAnimation = () => {
 const About = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   useTitleAnimation();
-  
+
   const handleContactClick = (e: React.MouseEvent) => {
     e.preventDefault();
     smoothScrollToId('footer');
   };
-  
+
   useEffect(() => {
-    // First section animations with opacity fade for transition
-    gsap.to('.about-first-top span', {
+    // Combined timeline for text animations
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.about__wrapper',
+        start: 'top 60%',
+        end: 'top 10%',
+        scrub: true,
+      },
+    });
+
+    tl.to('.about-first-top span', {
       yPercent: 100,
       stagger: 0.1,
-      scrollTrigger: {
-        trigger: '.about__wrapper',
-        start: 'top -100%', // Adjusted for earlier trigger
-        end: 'top -150%',
-        scrub: 1,
-      },
-    });
-    
-    gsap.to('.about-second__top>h4>span', {
-      y: 0,
-      scrollTrigger: {
-        trigger: '.about__wrapper',
-        start: 'top -150%',
-        end: 'top -200%',
-        scrub: 1,
-      },
-    });
-    
+      ease: 'power2.out',
+    })
+      .to('.about-second__top>h4>span', {
+        y: 0,
+        ease: 'power2.out',
+      }, '-=0.5')
+      .to('.text-first__text-wrapper > span', {
+        y: 0,
+        rotate: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'power2.out',
+      }, '-=0.5')
+      .to('.text-second__text-wrapper > span', {
+        y: 0,
+        rotate: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'power2.out',
+      }, '-=0.5')
+      .to('.text-second h3', {
+        opacity: 1,
+        ease: 'power2.out',
+      }, '-=0.5');
+
     // Image animations
     gsap.to('.text-first__img>img', {
       y: 0,
-      scrollTrigger: {
-        trigger: '.about__wrapper',
-        start: 'top -150%',
-        end: 'top -250%',
-        scrub: 1,
-      },
-      clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-      scale: 1,
-    });
-    
-    // Text animations
-    const lines = gsap.utils.toArray('.text-first__text-wrapper > span');
-    gsap.to(lines.reverse(), {
-      y: 0,
-      rotate: 0,
-      duration: 1,
-      stagger: 0.2,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: '.about__wrapper',
-        start: 'top -150%',
-        end: 'top -250%',
-        scrub: true,
-      },
-    });
-    
-    const linesSecond = gsap.utils.toArray('.text-second__text-wrapper > span');
-    gsap.to(linesSecond.reverse(), {
-      y: 0,
-      rotate: 0,
-      duration: 1,
-      stagger: 0.2,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: '.about__wrapper',
-        start: 'top -190%',
-        end: 'top -250%',
-        scrub: true,
-      },
-    });
-    
-    gsap.to('.text-second h3', {
       opacity: 1,
       scrollTrigger: {
         trigger: '.about__wrapper',
-        start: 'top -190%',
-        end: 'top -250%',
+        start: 'top 70%',
+        end: 'top 30%',
         scrub: 1,
       },
+      clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+      scale: 1,
     });
-    
-    // Desktop-specific animations
+
+    // Third section image animations
     gsap.to('.text-third__img img', {
       scrollTrigger: {
         trigger: '.text-third__img',
-        start: 'top -200%',
-        end: 'top -270%',
+        start: 'top 60%',
+        end: 'top 20%',
         scrub: 1,
       },
       clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
       scale: 1,
       stagger: 0.2,
     });
-    
+
     // Refresh ScrollTrigger
     ScrollTrigger.addEventListener("refresh", () => {
       window.scrollTo(0, 0);
     });
-    
+
     ScrollTrigger.refresh();
-    
+
     return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
       ScrollTrigger.removeEventListener("refresh", () => {});
     };
   }, []);
-  
+
   return (
     <section className="about mt-[250px] h-[400vh] relative z-[100]" id="about">
       <h2 className="about-title animation-title text-center ml-[140px]">about me</h2>
-      
-      <div className="about__wrapper bg-[#101010] text-[#aaa8a8] pb-[90px] sticky top-0 left-0 h-screen overflow-hidden" ref={wrapperRef}>
+
+      <div className="about__wrapper bg-[#101010] text-[#aaa8a8] pb-[90px] sticky top-0 left-0 h-screen" ref={wrapperRef}>
         <div className="container">
           {/* Physics text section */}
           <div className="about-first__wrapper absolute w-full left-0 px-[67px] bg-[#101010]">
@@ -702,7 +661,7 @@ const About = () => {
               <PhysicsText />
             </div>
           </div>
-          
+
           {/* About content sections */}
           <div className="about-second__wrapper">
             {/* Introduction */}
@@ -710,13 +669,13 @@ const About = () => {
               <h4 className="overflow-hidden translate-y-[120px]">
                 <span className="inline-block font-['Spline_Sans_Mono'] font-light text-[24px] leading-[99%] tracking-[-2%] uppercase text-white transform translate-y-[-100%]">about me</span>
               </h4>
-              
+
               <div className="about-second-text text-first w-max text-center mx-auto mb-[70px] translate-x-[-190px] pt-[150px]">
                 <div className="text-first__img mb-[25px] overflow-hidden w-[354px] h-[395px]">
                   <img
-                    src="./img/olha3.jpg"
+                    src={p1.src}
                     alt=""
-                    className="w-full h-full scale-[1.3] clip-path-[polygon(0_0,100%_0,100%_0,0_0)] object-cover"
+                    className="w-full h-full scale-[1.3] clip-path-[polygon(0_0,100%_0,100%_0,0_0)] object-cover opacity-0"
                   />
                 </div>
                 <p className="text-first__text">
@@ -728,7 +687,7 @@ const About = () => {
                   </span>
                 </p>
               </div>
-              
+
               {/* Experience */}
               <div className="about-second-text text-second w-max text-center mx-auto translate-x-[-60px] pb-[125px]">
                 <h3 className="font-['Spline_Sans_Mono'] font-light text-[24px] leading-[99%] tracking-[-2%] uppercase mb-[50px] flex items-center opacity-0">
@@ -750,7 +709,7 @@ const About = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Philosophy */}
             <div className="about-second-title border-t border-[#aaa8a8] pt-[110px] relative z-[100]">
               <h2 className="font-['Spline_Sans_Mono'] font-light text-[80px] leading-[99%] tracking-[2px] uppercase">
@@ -760,7 +719,7 @@ const About = () => {
                 of thinking.
               </h2>
             </div>
-            
+
             {/* Work description */}
             <div className="about-second-text text-first abs-t w-max">
               <RevealLines
@@ -773,7 +732,7 @@ const About = () => {
                 ]}
               />
             </div>
-            
+
             {/* Philosophy details */}
             <div className="about-second-text text-second ast-s w-max text-center ml-auto mr-[140px] mt-[60px]">
               <h3 className="font-['Spline_Sans_Mono'] font-light text-[24px] leading-[99%] tracking-[-2%] uppercase mb-[62px] flex items-center">
@@ -795,17 +754,17 @@ const About = () => {
                 ]}
               />
             </div>
-            
+
             {/* Lifestyle section */}
             <div className="about-second-text text-third w-max text-center mr-0 mt-[130px]">
               <div className="text-third__wrapper flex">
                 <div className="text-third__img overflow-hidden w-[253px] h-[283px] mr-[64px]">
-                  <img src="./img/olha.jpg" alt="" className="w-full h-full object-cover scale-[1.5] clip-path-[polygon(0_0,100%_0,100%_0,0_0)]" />
+                  <img src={p1.src} alt="" className="w-full h-full object-cover scale-[1.5] clip-path-[polygon(0_0,100%_0,100%_0,0_0)]" />
                 </div>
                 <div className="text-third__img overflow-hidden w-[206px] h-[354px] mr-[275px]">
-                  <img src="./img/olha2.jpg" alt="" className="w-full h-full object-cover scale-[1.5] clip-path-[polygon(0_0,100%_0,100%_0,0_0)]" />
+                  <img src={p1.src} alt="" className="w-full h-full object-cover scale-[1.5] clip-path-[polygon(0_0,100%_0,100%_0,0_0)]" />
                 </div>
-                
+
                 <div className="text-third__title">
                   <h3 className="font-['Spline_Sans_Mono'] font-light text-[24px] leading-[99%] tracking-[-2%] uppercase mb-[62px] flex items-center">
                     my lifestyle
@@ -827,7 +786,7 @@ const About = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Contact section */}
             <div className="about-second-text text-four flex mr-0">
               <a
@@ -854,6 +813,9 @@ const About = () => {
                 />
               </p>
             </div>
+
+            {/* Spacer to ensure scrollable height */}
+            <div className="spacer" style={{ height: '400vh' }} />
           </div>
         </div>
       </div>
