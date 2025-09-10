@@ -113,6 +113,7 @@ export default function Header() {
     <header
       className={`header relative ${isBurgerActive ? "burger-active" : ""}`}
       ref={heroRef}
+      
     >
       <section className="px-6 md:px-12 flex flex-col md:flex-row justify-between gap-10 items-center relative">
         {/* Left Side - Title */}

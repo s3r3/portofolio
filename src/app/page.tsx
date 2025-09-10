@@ -5,7 +5,9 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Navbar from "./components/navbar";
 import About from "./components/about";
-import Header  from "./components/Header";
+import Header from "./components/Header";
+import ServicesSection from "./components/services";
+import Footer, { CopyProvider } from "./components/footer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,18 +67,25 @@ export default function Home() {
       {loading && <SplashScreen onComplete={() => setLoading(false)} />}
 
       {!loading && (
-        <main className="bg-white text-black font-sans flex flex-col ">
-          {/* Navbar */}
-          <Navbar />
-          <section>
-            <Header />
-          </section>
-          <section>
-            <About />
-          </section>
-          {/* Section berikutnya untuk tes scroll animasi */}
-          
-        </main>
+        <CopyProvider>
+          <main className="bg-white text-black font-sans flex flex-col">
+            {/* Navbar */}
+            <Navbar />
+            <section>
+              <Header />
+            </section>
+            <section>
+              {/* <About /> */}
+            </section>
+            <div>
+              <ServicesSection />
+            </div>
+            <div>
+              <Footer />
+            </div>
+            {/* Section berikutnya untuk tes scroll animasi */}
+          </main>
+        </CopyProvider>
       )}
     </>
   );
